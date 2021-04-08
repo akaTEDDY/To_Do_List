@@ -11,7 +11,7 @@ public interface ItemRepository {
     int deleteItem(Item item);
     int checkUserExist(String userNick);
     List<Item> findItemByUserNick(String userNick);
-    Optional<Item> findItemById(long id);
+    Item findItemById(long id);
     int checkItemExist(long id);
     List<Item> findAll();
 }

@@ -38,9 +38,6 @@ public class ItemService {
         if(itemRepository.checkUserExist(item.getUserNick()) <= 0)
             return ERROR_MESSAGE.NOT_EXIST_USERNICK.value();
 
-        if(itemRepository.checkItemExist(item.getId()) <= 0)
-            return ERROR_MESSAGE.NOT_EXIST_ITEM.value();
-
         itemRepository.updateItem(item);
 
         return ERROR_MESSAGE.SUCCESS.value();
@@ -66,7 +63,7 @@ public class ItemService {
         return itemRepository.checkItemExist(id);
     }
 
-    public Optional<Item> findItemById(long id){
+    public Item findItemById(long id){
         if(itemRepository.checkItemExist(id) <= 0)
             return null;
 
@@ -75,6 +72,9 @@ public class ItemService {
 
 
     public List<Item> findItemByUserNick(String userNick){
+        if(itemRepository.checkUserExist(userNick) <= 0)
+            return null;
+
         return itemRepository.findItemByUserNick(userNick);
     }
 

@@ -49,7 +49,7 @@ public class PostgresItemRepository implements ItemRepository{
     }
 
     @Override
-    public Optional<Item> findItemById(long id) {
+    public Item findItemById(long id) {
         return sqlSession.selectOne("Item.FindItemById", id);
     }
 

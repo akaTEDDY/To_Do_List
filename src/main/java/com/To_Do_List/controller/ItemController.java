@@ -6,15 +6,13 @@ import com.To_Do_List.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ItemController {
@@ -95,22 +93,45 @@ public class ItemController {
 
     // Item update
     @GetMapping("/item/update")
-    public String updateItem(ItemForm form) {
+    public String updateItem() {
         return "/item/update";
+    }
+
+    @GetMapping("/item/update/{id}")
+    public String updateItemForm(@PathVariable("id") String id, Model model) {
+        if(id.isEmpty()) {
+            model.addAttribute("errorMsg", "NOT_EXIST_ITEM");
+            model.addAttribute("service", "수정");
+            return "/item/fail";
+        }
+
+        Item item = itemService.findItemById(Long.parseLong(id));
+
+        if(item == null) {
+            model.addAttribute("errorMsg", "NOT_EXIST_ITEM");
+            model.addAttribute("service", "수정");
+            return "/item/fail";
+        }
+
+        model.addAttribute("item", item);
+
+        return "/item/updateform";
     }
 
     @PostMapping("/item/update")
     public String updateItemForm(ItemForm form, Model model) {
         Item item = new Item();
+
         item.setId(form.getId());
         item.setTitle(form.getTitle());
         item.setNote(form.getNote());
         item.setStatus(form.getStatus());
+        item.setUserNick(form.getUserNick());
 
         try {
             SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date dueDate = transFormat.parse(form.getDueDate());
 
+            Date dueDate = transFormat.parse(form.getDueDate());
             item.setDueDate(dueDate);
         } catch (ParseException e) {
             model.addAttribute("errorMsg", "DATE_PARSING_ERROR");
@@ -131,10 +152,23 @@ public class ItemController {
     }
 
     // Item FindAll
-    @GetMapping("/items")
-    public String findAll(@RequestParam(name="nick") String nick) {
-        List<Item> item = itemService.findAll();
+    @GetMapping("/item/items")
+    public String findAll() {
+        return "/item/items";
+    }
 
-        return "redirect:/";
+    @GetMapping("/item/items/{nick}")
+    public String findAllForm(@PathVariable("nick") String nick, Model model) {
+        List<Item> items = itemService.findItemByUserNick(nick);
+
+        if(items == null) {
+            model.addAttribute("service", "조회");
+            model.addAttribute("errorMsg", "NOT_EXIST_USERNICK");
+            return "/item/fail";
+        }
+
+        model.addAttribute("items", items);
+
+        return "item/itemsform";
     }
 }

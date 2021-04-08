@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/item/update}" method="post">
+    <div class="container">
+        <input type="hidden" id="id" name="id" th:value="${item.id}"> <br>
+        <label for="title">title</label>
+        <input type="text" id="title" name="title" th:value="${item.title}"> <br>
+        <label for="note">note</label>
+        <input type="text" id="note" name="note" th:value="${item.note}"> <br>
+        <label for="status">status</label>
+        <select name="status" id="status" >
+            <option value="none">=== 선택 ===</option>
+            <option value="doing" th:selected="${#strings.equals(item.status, 'doing')}">doing</option>
+            <option value="done" th:selected="${#strings.equals(item.status, 'done')}">done</option>
+            <option value="to_do" th:selected="${#strings.equals(item.status, 'to_do')}">to do</option>
+        </select> <br>
+        <label for="dueDate">due to</label>
+        <input type="date" id="dueDate" name="dueDate" th:value="${#dates.format(item.dueDate, 'yyyy-MM-dd')}"> <br>
+        <label for="userNick">userNick</label>
+        <input type="text" id="userNick" name="userNick" th:value="${item.userNick}"> <br>
+    </div>
+    <button type="submit">수정</button>
+</form>
+</body>
+</html>

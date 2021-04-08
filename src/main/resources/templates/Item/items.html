@@ -6,15 +6,15 @@
 </head>
 <body>
 <div class="container">
-    <label for="id">id</label>
-    <input type="text" id="id" name="id" placeholder="id를 입력하세요."> <br>
+    <label for="nick">nick</label>
+    <input type="text" id="nick" name="nick" placeholder="nick를 입력하세요."> <br>
 </div>
 <button id="search" onclick="onClick();">조회</button>
 <script>
         function onClick() {
-            const id = document.getElementById('id').value;
+            const nick = document.getElementById('nick').value;
 
-            location.href = '/item/update/' + id;
+            location.href = '/item/items/' + nick;
         }
     </script>
 </body>

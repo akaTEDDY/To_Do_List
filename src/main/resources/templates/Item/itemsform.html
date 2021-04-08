@@ -1,0 +1,29 @@
+<html lang="en-US" xmlns:th="http://www.typmeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>Develop</title>
+    <link rel="stylesheet" href="/css/test.css" onerror="_failed(this)" />
+</head>
+
+<body class="">
+<div id="board" class="u-fancy-scrollbar">
+    <div class="list-wrapper">
+        <div class="list js-list-content">
+            <div class="list-header">
+                <textarea class="list-header-name mod-list-name" aria-label="To Do" spellcheck="false" dir="auto" maxlength="512" style="overflow: hidden; overflow-wrap: break-word; height: 28px;">To Do</textarea>
+            </div>
+            <div class="list-cards" th:each="item : ${items}">
+                <a class="list-card">
+                    <div class="list-card-details">
+                        <span class="list-card-title" dir="auto" th:text="${item.title}">
+                            <span class="card-short-id hide" th:text="${item.id}">#555</span>
+                        </span>
+                        <span class="list-card-due-date" dir="auto" th:text="${#dates.format(item.dueDate, 'yyyy-MM-dd')}"></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

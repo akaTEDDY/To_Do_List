@@ -12,7 +12,7 @@
 
     <update id="UpdateItem" parameterType="Item">
         <![CDATA[
-		    update items set title=#{title} note=#{note} status=#{status} regdate=#{regDate} duedate=#{dueDate} usernick=#{userNick}
+		    update items set title=#{title}, note=#{note}, status=#{status}, duedate=#{dueDate}, usernick=#{userNick}
 		    where id = #{id};
 	    ]]>
     </update>
