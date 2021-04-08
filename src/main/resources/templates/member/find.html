@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.typmeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    <div>
+        <table>
+            <form action="/members" method="get">
+                <div class="container">
+                    <label id="label_nick" for="nick">nick</label>
+                    <input type="text" id="nick" name="nick" placeholder="nick을 입력하세요.">
+                </div>
+                <button type="submit">찾기</button>
+            </form>
+
+            <br>
+            <br>
+
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>이름</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}">
+                <td th:text="${member.id}"></td>
+                <td th:text="${member.nick}"></td>
+                <td th:text="${member.pw}"></td>
+                <td th:text="${member.email}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

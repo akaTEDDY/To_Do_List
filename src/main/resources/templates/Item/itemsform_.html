@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.typmeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div>
+        <table>
+
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>note</th>
+                <th>status</th>
+                <th>regDate</th>
+                <th>dueDate</th>
+                <th>usernick</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.title}"></td>
+                <td th:text="${item.note}"></td>
+                <td th:text="${item.status}"></td>
+                <td th:text="${#dates.format(item.regDate, 'dd-MM-yyyy')}"></td>
+                <td th:text="${#dates.format(item.dueDate, 'dd-MM-yyyy')}"></td>
+                <td th:text="${item.userNick}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
