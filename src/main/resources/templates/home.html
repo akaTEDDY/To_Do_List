@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.typmeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 
 <div>
     <div sec:authorize="isAuthenticated()">
-        Hi! <span sec:authentication="name">SomeName</span><br/>
-        You are
+        Hi! <span sec:authentication="name">SomeName</span>
+        , You are
         <span sec:authorize="hasRole('ROLE_USER')">USER</span><br/>
         <span sec:authorize="hasRole('ROLE_ADMIN')">ADMIN</span>
     </div>
     <div>
         <p>
-            <a href="/login">Login</a><br>
-            <a href="/logout">Logout</a><br>
-            <a href="/member/create">회원가입</a><br><br>
+            <div sec:authorize="!isAuthenticated()">
+                <a href="/login">Login</a><br>
+                <a href="/member/create">회원가입</a><br>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <a href="/logout" sec:authorize="isAuthenticated()">Logout</a><br>
+            </div>
+            <br>
             <a href="/members">회원 목록</a><br>
-            <a href="/member/update">회원 정보 수정</a> <br><br>
+            <a href="/member/update">회원 정보 수정</a>
+
+            <br><br>
+
             <a href="/item/create">아이템 생성</a><br>
             <a href="/item/delete">아이템 삭제</a><br>
             <a href="/item/update">아이템 수정</a><br>

@@ -171,4 +171,9 @@ public class ItemController {
 
         return "item/itemsform";
     }
+
+    @GetMapping("/item/test4.html")
+    public String test() {
+        return "/item/test4.html";
+    }
 }

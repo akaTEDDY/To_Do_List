@@ -14,7 +14,7 @@
             </div>
             <div class="list-cards" th:each="item : ${items}">
                 <a class="list-card">
-                    <div class="list-card-details">
+                    <div class="list-card-details" th:attr="onclick=|onClick('${item.id}')|">
                         <span class="list-card-title" dir="auto" th:text="${item.title}">
                             <span class="card-short-id hide" th:text="${item.id}">#555</span>
                         </span>
@@ -22,6 +22,34 @@
                     </div>
                 </a>
             </div>
+            <script type="text/javascript">
+                function onClick(id) {
+                    //location.href = '../test4.html'
+                    url = '../test4.html'
+
+                    // 다이얼로그를 생성합니다.
+                    $('<div id="DialogDiv">').dialog({
+
+                        // 커스텀 스타일을 줍니다.
+                        dialogClass: 'custom-dialog-style',
+
+                        // 모달 다이얼로그로 생성합니다.
+                        modal: true,
+
+                        // 다이얼로그 열기 콜백
+                        open: function () {
+                            // 내용을 불러 옵니다.
+                            $(this).load(url);
+                        },
+
+                        // 닫기 콜백
+                        close: function (e) {
+                            $(this).empty();
+                            $(this).dialog('destroy');
+                        }
+                    });
+                }
+            </script>
         </div>
     </div>
 </div>
